@@ -1,0 +1,14 @@
+{
+  "name": "tasktrax",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build-css": "npx tailwindcss -i ./styles.css -o ./dist/output.css --watch",
+	"watch-css": "npx tailwindcss build -i ./styles.css -o ./dist/output.css -- watch",
+	"dev": "concurrently \"npm run watch-css\" \"npm start\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
