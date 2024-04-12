@@ -29,29 +29,31 @@ db.getConnection((err, connection) => {
 });
 
 // Other routes and middleware
-app.use(express.json());
 
 // Serving static files from "public" directory
 app.use(express.static(path.join(__dirname, "/public")));
 
 app.use(
-  "dist",
-  express.static(path.join(__dirname, "dist"), {
-    setHeaders: (res, path, stat) => {
-      if (path.endsWith(".css")) {
-        res.setHeader("Contant-Type", "text/css");
-      }
-    },
-  })
+	"dist",
+	express.static(path.join(__dirname, "dist"), {
+		setHeaders: (res, path, stat) => {
+			if (path.endsWith(".css")) {
+				res.setHeader("Contant-Type", "text/css");
+			}
+		},
+	})
 );
 
-app.get("/", (req, res) => {
-	res.render("index");
-})
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json());
 
-app.get("/calendar", (req, res) => {
-	res.render("calendar");
-})
+// Define the routes
+app.use("/", require("./routes/pages"));
+app/use("auth", require("./routes/auth"));
+
+
+
+
 
 //Route to create a user. Checks if user's email exists first, if not creates that user.
 app.post("/createUser", async (req, res) => {
