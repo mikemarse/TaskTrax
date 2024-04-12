@@ -28,7 +28,6 @@ db.getConnection((err, connection) => {
   console.log("DB connected successful: " + connection.threadId);
 });
 
-// Other routes and middleware
 
 // Serving static files from "public" directory
 app.use(express.static(path.join(__dirname, "/public")));
@@ -44,15 +43,14 @@ app.use(
 	})
 );
 
+// Parse URL-encoded bodies
 app.use(express.urlencoded({ extended: false }))
+// Pase JSON bodies
 app.use(express.json());
 
 // Define the routes
 app.use("/", require("./routes/pages"));
-app/use("auth", require("./routes/auth"));
-
-
-
+app.use("/auth", require("./routes/auth"));
 
 
 //Route to create a user. Checks if user's email exists first, if not creates that user.
@@ -96,7 +94,7 @@ app.post("/createUser", async (req, res) => {
 });
 
 //Creating the login route. Checks if user's email exists, then compares the passwords. Returns the acccessToken.
-app.post("/login", (req, res) => {
+/*app.post("/login", (req, res) => {
 	const email = req.body.email;
 	const password = req.body.password;
 
@@ -130,9 +128,7 @@ app.post("/login", (req, res) => {
 			}
 		})
 	})
-
-
-})
+})*/
 
 // Start the server
 const PORT = process.env.PORT || 3000;
