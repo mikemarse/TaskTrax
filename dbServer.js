@@ -45,8 +45,12 @@ app.use(
   })
 );
 
-app.get("/users", (req, res) => {
-	res.send({data: "here is your data"});
+app.get("/", (req, res) => {
+	res.render("index");
+})
+
+app.get("/calendar", (req, res) => {
+	res.render("calendar");
 })
 
 //Route to create a user. Checks if user's email exists first, if not creates that user.
@@ -114,7 +118,7 @@ app.post("/login", (req, res) => {
 					console.log("------> Login successful");
 					console.log("------> Generating accessToken");
 					const token = generateAccessToken({email: email});
-					//console.log(token);
+					console.log(result[0].user);
 					res.json({accessToken: token});
 				}
 				else {
