@@ -43,6 +43,10 @@ app.use(
 	})
 );
 
+app.get("/calendar", (req, res) => {
+	res.render("calendar");
+});
+
 // Parse URL-encoded bodies
 app.use(express.urlencoded({ extended: false }))
 // Pase JSON bodies

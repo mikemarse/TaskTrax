@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en-us">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="dist/output.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="flex justify-center items-center h-screen">
+			<div class="border-slate-200 border rounded-md py-16 px-8 text-sm shadow-md w-[550px]">
+				<div class=" text-center mb-10 font-bold text-3xl">
+					Register 
+					<p class="text-lg font-normal">for your TaskTrax account</p>
+				</div>
+				<form class="space-y-4 text-xl" method="post" action="/auth/register" >
+					<div class="flex flex-col space-y-1">
+						<label for="name" class="text-lg">Full name</label>
+						<input type="text" placeholder="Full name" class="border border-black p-2 rounded-md outline-none" id="name" name="name">
+					</div>
+					<div class="flex flex-col space-y-1">
+						<label for="email" class="text-lg">Email</label>
+						<input type="email" placeholder="Email" class="border border-black p-2 rounded-md outline-none" id="email" name="email">
+					</div>
+					<div class="flex flex-col space-y-1">
+						<label for="password" class="text-lg">Password</label>
+						<div class="relative">
+							<input type="password" id="password-input" name="password" placeholder="Enter a password" class="border border-black p-2 rounded-md outline-none relative w-full pr-16 flex justify-center items-center">
+							<!--The button below will be used to show password-->
+							<button class="absolute top-[0px] right-2 p-3 text-sm m-auto text-[#0a66c2] hover:underline flex text-center items-center justify-center">Show</button>
+						</div>
+					</div>
+					<div class="flex flex-col space-y-1">
+						<label for="passwordConfirm" class="text-lg">Confirm password</label>
+						<div class="relative">
+							<input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm password" class="border border-black p-2 rounded-md outline-none relative w-full pr-16 flex justify-center items-center">
+							<!--The button below will be used to show password-->
+							<button class="absolute top-[0px] right-2 p-3 text-sm m-auto text-[#0a66c2] hover:underline flex text-center items-center justify-center">Show</button>
+						</div>
+					</div>
+					<div>
+						<button class="bg-[#0a66c2] text-white py-2 px-10 rounded-full w-full mt-4" type="submit">Register</button>
+					</div>
+					<div class="flex justify-center items-center text-center space-x-1 text-sm">
+						<p>Already have an account?</p>
+						<!--Maybe I can put a button and change to a Create an Account view instead of having an a tag could possibly do the same with Forgot Password-->
+						<a href="./index.html"class="text-[#0a66c2] visited:text-[#8344cc]">Sign in</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

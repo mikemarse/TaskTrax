@@ -18,10 +18,45 @@ const db = mysql.createPool({
   port: DB_PORT, // default port number
 });
 
-exports.register = (req, res) => {
-	console.log(req.body);
-	res.send("Form submitted");
-}
+//Route to create a user. Checks if user's email exists first, if not creates that user.
+exports.register = async (req, res) => {
+  const user = req.body.name;
+  const email = req.body.email;
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+  db.getConnection(async (err, connection) => {
+    if (err) throw err;
+
+    const sqlSearch = "SELECT * FROM userTable WHERE email = ?";
+    const search_query = mysql.format(sqlSearch, [email]);
+
+    // Inserting the user into the database
+    const sqlInsert = "INSERT INTO userTable VALUES (0, ?, ?, ?)";
+    const insert_query = mysql.format(sqlInsert, [user, email, hashedPassword]);
+    // ? will be replaced by values
+    // ?? will be replaced by strings
+
+    connection.query(search_query, async (err, result) => {
+      if (err) throw err;
+      console.log("------> Search Results");
+      console.log(result.length);
+
+      if (result.length !== 0) {
+        connection.release();
+        console.log("------> Email is already in use");
+        res.sendStatus(400);
+      } else {
+        connection.query(insert_query, (err, result) => {
+          connection.release();
+          if (err) throw err;
+          console.log("------> Created new User");
+          console.log(result.insertId);
+          res.sendStatus(201);
+        });
+      }
+    });
+  });
+};
 
 //Creating the login route. Checks if user's email exists, then compares the passwords. Returns the acccessToken.
 exports.login =(req, res) => {
@@ -47,6 +82,7 @@ exports.login =(req, res) => {
 			else {
 				const hashedPassword = result[0].password;
 
+				// If password is correct
 				if (await bcrypt.compare(password, hashedPassword)) {
 					console.log("------> Login successful");
 					console.log("------> Generating accessToken");
@@ -54,8 +90,9 @@ exports.login =(req, res) => {
 					console.log(`${result[0].user}'s token is: ${token}`);
 					res.send(`${result[0].user} is now logged in!`)
 					//res.json({accessToken: token});
+					// Gonna render the calendar page here after login! ------------
 				}
-				else {
+				else { // Password is incorrect
 					console.log("------> Password is incorrect");
 					res.send("Password incorrect!");
 					return res.render('/index', {
