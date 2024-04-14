@@ -1,5 +1,7 @@
 let password;
 let passwordConfirm; 
+const loginForm = document.getElementById("loginForm");
+const registerForm = document.getElementById("registerForm");
 
 if (password = document.getElementById("password")){
 	const showPassword = document.getElementById("showPassword");
@@ -28,3 +30,47 @@ if (passwordConfirm = document.getElementById("passwordConfirm")) {
 		}
 	}
 }
+
+loginForm.addEventListener('submit', async(event) => {
+	event.preventDefault();
+	const formData = new FormData(loginForm);
+
+	// Get email and password fields from the form
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    // Construct the request body as a JavaScript object
+    const requestBody = {
+        email: email,
+        password: password
+    };
+
+	try {
+		const response = await fetch('/auth/login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json' // Specify JSON content type
+			},
+			body: JSON.stringify(requestBody)
+		});
+
+		// Parse JSON response
+		const data = await response.json();
+
+		// Delete this after
+		console.log(response.ok);
+		if (response.ok) {
+			//redirecting to calendar page
+			// This will handle the access token uncomment when we figure out what to do with it
+			//localStorage.setItem('accessToken', data.accessToken)
+			window.location.href = data.redirectTo;
+		}
+		else {
+			const errorMessage = document.getElementById("errorMessage");
+			errorMessage.innerHTML = data.message;
+		}
+	}
+	catch (error) {
+		console.error(error)
+	}
+})

@@ -26,6 +26,7 @@ exports.register = async (req, res) => {
   const email = req.body.email;
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
 	const passwordConfirm = req.body.passwordConfirm;
+	console.log("Reaching register")
 
   db.getConnection(async (err, connection) => {
     if (err) throw err;
@@ -83,10 +84,13 @@ exports.login = (req, res) => {
 			if (err) throw (err);
 			if (result.length === 0) {
 				console.log("------> User does not exist");
-				res.sendStatus(404);
-				return res.render('/index', {
+				//res.sendStatus(404);
+				res.status(404).json({accessToken: "", redirectTo: "/", message: "Invalid email or password"});
+
+				// USING A TEMPLATE ENGINE YOU CAN DO THIS
+				/*return res.render('/index', {
 					message: 'Incorrect email or password'
-				});
+				});*/
 			}
 			else {
 				const hashedPassword = result[0].password;
@@ -97,17 +101,16 @@ exports.login = (req, res) => {
 					console.log("------> Generating accessToken");
 					const token = generateAccessToken({email: email});
 					console.log(`${result[0].user}'s token is: ${token}`);
-					//res.send(`${result[0].user} is now logged in!`);
-					res.redirect("/calendar"); // Rendering new calendar page after login
-					//res.json({accessToken: token});
+					res.json({accessToken: token, redirectTo: "/calendar", message: ""});
 					// Gonna render the calendar page here after login! ------------
 				}
 				else { // Password is incorrect
 					console.log("------> Password is incorrect");
-					res.send("Password incorrect!");
-					return res.render('/', {
+					//res.send("Password incorrect!");
+					res.status(404).json({accessToken: "", redirectTo: "/", message: "Invalid email or password"})
+					/*return res.render('/', {
 						message: 'Incorrect email or password' // need a templating engine to be able to render this. Gotta figure out which one to use.
-					});
+					});*/
 				}
 			}
 		})
