@@ -20,9 +20,9 @@
 					<div class="flex flex-col space-y-1">
 						<label for="password" class="text-lg">Password</label>
 						<div class="relative">
-							<input type="password" placeholder="Enter your password" class="border border-black p-2 rounded-md outline-none relative w-full pr-16 flex justify-center items-center" id="password" name="password">
+							<input type="password" id="password" name="password" placeholder="Enter your password" class="border border-black p-2 rounded-md outline-none relative w-full pr-16 flex justify-center items-center">
 							<!--The button below will be used to show password-->
-							<button class="absolute top-[0px] right-2 p-3 text-sm m-auto text-[#0a66c2] hover:underline flex text-center items-center justify-center">Show</button>
+							<button type="button" id="showPassword" class="absolute top-[0px] right-2 p-3 text-sm m-auto text-[#0a66c2] hover:underline flex text-center items-center justify-center">Show</button>
 						</div>
 					</div>
 					<div>
@@ -33,10 +33,11 @@
 					</div>
 					<div class="flex justify-center items-center text-center space-x-1 text-sm">
 						<p>Don't have an account?</p>
-						<a href="./register.html" class="text-[#0a66c2] visited:text-[#8344cc]">Sign up</a>
+						<a href="/register" class="text-[#0a66c2] visited:text-[#8344cc]">Sign up</a>
 					</div>
 				</form>
 			</div>
 		</div>
+		<script src="/javascript/index.js"></script>
 	</body>
 </html>

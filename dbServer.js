@@ -43,9 +43,9 @@ app.use(
 	})
 );
 
-app.get("/calendar", (req, res) => {
-	res.render("calendar");
-});
+//app.get("/calendar", (req, res) => {
+//	res.render("calendar");
+//});
 
 // Parse URL-encoded bodies
 app.use(express.urlencoded({ extended: false }))
@@ -58,7 +58,7 @@ app.use("/auth", require("./routes/auth"));
 
 
 //Route to create a user. Checks if user's email exists first, if not creates that user.
-app.post("/createUser", async (req, res) => {
+/*app.post("/createUser", async (req, res) => {
   const user = req.body.name;
   const email = req.body.email;
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -95,7 +95,7 @@ app.post("/createUser", async (req, res) => {
       }
     });
   });
-});
+});*/
 
 //Creating the login route. Checks if user's email exists, then compares the passwords. Returns the acccessToken.
 /*app.post("/login", (req, res) => {

@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link href="dist/output.css" rel="stylesheet">
+		<link href="/dist/output.css" rel="stylesheet">
+		<link href="styles/styles.css">
 	</head>
 	<body>
 		<div class="flex justify-center items-center h-screen">
@@ -24,9 +25,9 @@
 					<div class="flex flex-col space-y-1">
 						<label for="password" class="text-lg">Password</label>
 						<div class="relative">
-							<input type="password" id="password-input" name="password" placeholder="Enter a password" class="border border-black p-2 rounded-md outline-none relative w-full pr-16 flex justify-center items-center">
+							<input type="password" id="password" name="password" placeholder="Enter a password" class="border border-black p-2 rounded-md outline-none relative w-full pr-16 flex justify-center items-center">
 							<!--The button below will be used to show password-->
-							<button class="absolute top-[0px] right-2 p-3 text-sm m-auto text-[#0a66c2] hover:underline flex text-center items-center justify-center">Show</button>
+							<button type="button" id="showPassword" class="absolute top-[0px] right-2 p-3 text-sm m-auto text-[#0a66c2] hover:underline flex text-center items-center justify-center">Show</button>
 						</div>
 					</div>
 					<div class="flex flex-col space-y-1">
@@ -34,7 +35,7 @@
 						<div class="relative">
 							<input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm password" class="border border-black p-2 rounded-md outline-none relative w-full pr-16 flex justify-center items-center">
 							<!--The button below will be used to show password-->
-							<button class="absolute top-[0px] right-2 p-3 text-sm m-auto text-[#0a66c2] hover:underline flex text-center items-center justify-center">Show</button>
+							<button type="button" id="showConfirm" class="absolute top-[0px] right-2 p-3 text-sm m-auto text-[#0a66c2] hover:underline flex text-center items-center justify-center">Show</button>
 						</div>
 					</div>
 					<div>
@@ -43,10 +44,11 @@
 					<div class="flex justify-center items-center text-center space-x-1 text-sm">
 						<p>Already have an account?</p>
 						<!--Maybe I can put a button and change to a Create an Account view instead of having an a tag could possibly do the same with Forgot Password-->
-						<a href="./index.html"class="text-[#0a66c2] visited:text-[#8344cc]">Sign in</a>
+						<a href="/"class="text-[#0a66c2] visited:text-[#8344cc]">Sign in</a>
 					</div>
 				</form>
 			</div>
 		</div>
+		<script src="/javascript/index.js"></script>
 	</body>
 </html>

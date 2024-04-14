@@ -2,6 +2,8 @@ const mysql = require("mysql");
 const generateAccessToken = require("../generateAccessToken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
+const express = require("express");
+const app = express();
 
 const DB_HOST = process.env.DB_HOST;
 const DB_USER = process.env.DB_USER;
@@ -23,6 +25,7 @@ exports.register = async (req, res) => {
   const user = req.body.name;
   const email = req.body.email;
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
+	const passwordConfirm = req.body.passwordConfirm;
 
   db.getConnection(async (err, connection) => {
     if (err) throw err;
@@ -45,13 +48,19 @@ exports.register = async (req, res) => {
         connection.release();
         console.log("------> Email is already in use");
         res.sendStatus(400);
-      } else {
+      } 
+			else if (req.body.password !== passwordConfirm) {
+				connection.release();
+				console.log("Passwords do not match ")
+				return res.redirect("/register");
+			}
+			else {
         connection.query(insert_query, (err, result) => {
           connection.release();
           if (err) throw err;
           console.log("------> Created new User");
           console.log(result.insertId);
-          res.sendStatus(201);
+          res.redirect("/calendar");
         });
       }
     });
@@ -59,7 +68,7 @@ exports.register = async (req, res) => {
 };
 
 //Creating the login route. Checks if user's email exists, then compares the passwords. Returns the acccessToken.
-exports.login =(req, res) => {
+exports.login = (req, res) => {
 	const email = req.body.email;
 	const password = req.body.password;
 
@@ -88,14 +97,15 @@ exports.login =(req, res) => {
 					console.log("------> Generating accessToken");
 					const token = generateAccessToken({email: email});
 					console.log(`${result[0].user}'s token is: ${token}`);
-					res.send(`${result[0].user} is now logged in!`)
+					//res.send(`${result[0].user} is now logged in!`);
+					res.redirect("/calendar"); // Rendering new calendar page after login
 					//res.json({accessToken: token});
 					// Gonna render the calendar page here after login! ------------
 				}
 				else { // Password is incorrect
 					console.log("------> Password is incorrect");
 					res.send("Password incorrect!");
-					return res.render('/index', {
+					return res.render('/', {
 						message: 'Incorrect email or password' // need a templating engine to be able to render this. Gotta figure out which one to use.
 					});
 				}
