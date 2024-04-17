@@ -13,7 +13,7 @@
 					Register 
 					<p class="text-lg font-normal">for your TaskTrax account</p>
 				</div>
-				<form class="space-y-4 text-xl" method="post" action="/auth/register" id="registerForm" >
+				<form class="space-y-4 text-xl" id="registerForm" >
 					<div class="flex flex-col space-y-1">
 						<label for="name" class="text-lg">Full name</label>
 						<input type="text" placeholder="Full name" class="border border-black p-2 rounded-md outline-none" id="name" name="name">
@@ -27,7 +27,7 @@
 						<div class="relative">
 							<input type="password" id="password" name="password" placeholder="Enter a password" class="border border-black p-2 rounded-md outline-none relative w-full pr-16 flex justify-center items-center">
 							<!--The button below will be used to show password-->
-							<button type="button" id="showPassword" class="absolute top-[0px] right-2 p-3 text-sm m-auto text-[#0a66c2] hover:underline flex text-center items-center justify-center">Show</button>
+							<button type="button" id="showPassword" class="absolute top-[0px] right-2 p-3 text-sm m-auto text-[#0a66c2] flex text-center items-center justify-center">Show</button>
 						</div>
 					</div>
 					<div class="flex flex-col space-y-1">
@@ -35,7 +35,8 @@
 						<div class="relative">
 							<input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm password" class="border border-black p-2 rounded-md outline-none relative w-full pr-16 flex justify-center items-center">
 							<!--The button below will be used to show password-->
-							<button type="button" id="showConfirm" class="absolute top-[0px] right-2 p-3 text-sm m-auto text-[#0a66c2] hover:underline flex text-center items-center justify-center">Show</button>
+							<button type="button" id="showConfirm" class="absolute top-[0px] right-2 p-3 text-sm m-auto text-[#0a66c2] flex text-center items-center justify-center">Show</button>
+							<div class="text-sm text-[#A50016] ml-2 mt-2" id="errorMessageRegister"></div>
 						</div>
 					</div>
 					<div>
