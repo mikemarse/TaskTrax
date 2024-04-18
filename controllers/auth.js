@@ -48,12 +48,12 @@ exports.register = async (req, res) => {
       if (result.length !== 0) {
         connection.release();
         console.log("------> Email is already in use");
-        res.sendStatus(400);
+				res.status(404).json({accessToken: "", redirectTo: "/register", message: "Email is already in use"});
       } 
 			else if (req.body.password !== passwordConfirm) {
 				connection.release();
 				console.log("Passwords do not match ")
-				return res.redirect("/register");
+				res.status(404).json({accessToken: "", redirectTo: "/register", message: "Passwords do not match"});
 			}
 			else {
         connection.query(insert_query, (err, result) => {
@@ -61,7 +61,9 @@ exports.register = async (req, res) => {
           if (err) throw err;
           console.log("------> Created new User");
           console.log(result.insertId);
-          res.redirect("/calendar");
+					const token = generateAccessToken({email: email});
+					console.log(`${user}'s token is: ${token}`);
+					res.json({accessToken: token, redirectTo: "/calendar", message: ""});
         });
       }
     });

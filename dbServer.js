@@ -5,7 +5,6 @@ const path = require("path");
 require("dotenv").config();
 
 const mysql = require("mysql");
-const bcrypt = require("bcrypt");
 
 const DB_HOST = process.env.DB_HOST;
 const DB_USER = process.env.DB_USER;
@@ -23,10 +22,10 @@ const db = mysql.createPool({
 });
 
 //connecting to server
-db.getConnection((err, connection) => {
-  if (err) throw err;
-  console.log("DB connected successful: " + connection.threadId);
-});
+//db.getConnection((err, connection) => {
+//  if (err) throw err;
+//  console.log("DB connected successful: " + connection.threadId);
+//});
 
 
 // Serving static files from "public" directory
@@ -43,10 +42,6 @@ app.use(
 	})
 );
 
-//app.get("/calendar", (req, res) => {
-//	res.render("calendar");
-//});
-
 // Parse URL-encoded bodies
 app.use(express.urlencoded({ extended: false }))
 // Pase JSON bodies
@@ -55,84 +50,6 @@ app.use(express.json());
 // Define the routes
 app.use("/", require("./routes/pages"));
 app.use("/auth", require("./routes/auth"));
-
-
-//Route to create a user. Checks if user's email exists first, if not creates that user.
-/*app.post("/createUser", async (req, res) => {
-  const user = req.body.name;
-  const email = req.body.email;
-  const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
-  db.getConnection(async (err, connection) => {
-    if (err) throw err;
-
-    const sqlSearch = "SELECT * FROM userTable WHERE email = ?";
-    const search_query = mysql.format(sqlSearch, [email]);
-
-    // Inserting the user into the database
-    const sqlInsert = "INSERT INTO userTable VALUES (0, ?, ?, ?)";
-    const insert_query = mysql.format(sqlInsert, [user, email, hashedPassword]);
-    // ? will be replaced by values
-    // ?? will be replaced by strings
-
-    await connection.query(search_query, async (err, result) => {
-      if (err) throw err;
-      console.log("------> Search Results");
-      console.log(result.length);
-
-      if (result.length !== 0) {
-        connection.release();
-        console.log("------> Email is already in use");
-        res.sendStatus(400);
-      } else {
-        await connection.query(insert_query, (err, result) => {
-          connection.release();
-          if (err) throw err;
-          console.log("------> Created new User");
-          console.log(result.insertId);
-          res.sendStatus(201);
-        });
-      }
-    });
-  });
-});*/
-
-//Creating the login route. Checks if user's email exists, then compares the passwords. Returns the acccessToken.
-/*app.post("/login", (req, res) => {
-	const email = req.body.email;
-	const password = req.body.password;
-
-	db.getConnection(async (err, connection) => {
-		if (err) throw (err);
-
-		const sqlSearch = "SELECT * FROM userTable WHERE email = ?";
-		const search_query = mysql.format(sqlSearch, [email]);
-
-		await connection.query(search_query, async (err, result) => {
-			connection.release();
-			if (err) throw (err);
-			if (result.length === 0) {
-				console.log("------> User does not exist");
-				res.sendStatus(404);
-			}
-			else {
-				const hashedPassword = result[0].password;
-
-				if (await bcrypt.compare(password, hashedPassword)) {
-					console.log("------> Login successful");
-					console.log("------> Generating accessToken");
-					const token = generateAccessToken({email: email});
-					console.log(result[0].user);
-					res.json({accessToken: token});
-				}
-				else {
-					console.log("------> Password is incorrect");
-					res.send("Password incorrect!");
-				}
-			}
-		})
-	})
-})*/
 
 // Start the server
 const PORT = process.env.PORT || 3000;
