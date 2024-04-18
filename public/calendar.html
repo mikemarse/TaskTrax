@@ -3259,11 +3259,16 @@
           }
         }
       }
+    
+      function LogoutFunction(){
+        sessionStorage.clear();
+        window.location.href = "index.html";
+      }
 
 </script>
   </head>
   <body>
-      <button type="button" style="float: right;">Logout</button>
+    <button type="button" style="float: right;" onclick="LogoutFunction()">Logout</button>
       
       <br><br>
       
