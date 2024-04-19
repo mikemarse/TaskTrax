@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  
+  <style>
+  
+      div
+      {
+        text-align: center;
+      }
+  
+      .Title
+      {
+        text-align: center;
+        font-size: 30px;
+      }
+      .TitleTwo
+      {
+        text-align: center;
+        font-size: 20px;
+      }
+  </style>
+  
+  <body>
+    
+      <button type="button" style="float: right;">Logout</button>
+      
+      <br><br><br><br>
+    
+      <div id="myDIV" class="Title">ADMINISTRATOR VIEW<br><br></div>
+  
+  <!-- Script to welcome the administrator -->
+  <script>
+  
+    let AdministratorName = "Volvo XC60"; 
+    document.write("<div> Welcome " + AdministratorName + "! </div>");
+  
+    const CurrentDateAndTime = new Date();
+    console.log(CurrentDateAndTime.toLocaleString());
+    
+    
+    <!-- Constantly add to Browser Storage -->
+    
+    
+    var HistoryEmpty = localStorage.getItem("AdminHistory");
+    
+    if (HistoryEmpty == null)
+    {
+      localStorage.setItem("AdminHistory", "First");
+      console.log(localStorage.getItem("AdminHistory"));
+    }
+    else
+    {
+      localStorage.setItem("AdminHistory", HistoryEmpty + "AFTER FIRST");
+      console.log(localStorage.getItem("AdminHistory"));
+    }
+  
+  </script>
+      
+      <p><br>Your Total visits:</p>
+      
+      <p><br>History of User Activities:</p>
+
+      <p id="p1">???</p>
+      
+      <script>
+      document.getElementById("p1").innerHTML = localStorage.getItem("UserHistory");
+      </script>
+      
+  </body>
+</html>

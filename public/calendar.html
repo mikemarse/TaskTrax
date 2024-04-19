@@ -42,6 +42,8 @@
       
     </style>
     <script>
+
+    console.log(localStorage.getItem("UserHistory"));
     
     <!-- This function will activate when Next Arrow is clicked, and switch to the next month -->
       function NextMonth()
@@ -170,14 +172,12 @@
           var Feb28 = document.getElementById("Feb 28");
           Feb28.removeAttribute("hidden");
           
-          <!-- Switch text to represent the next month -->
           MonthText.innerHTML = "February";
         }
         else
         {
           if (MonthText.innerHTML === "February")
           {
-            <!-- Hide appropriate days moving onto the next month -->
             var Feb1 = document.getElementById("Feb 1");
             Feb1.setAttribute("hidden", "");
             var Feb2 = document.getElementById("Feb 2");
@@ -298,14 +298,12 @@
             var Mar31 = document.getElementById("Mar 31");
             Mar31.removeAttribute("hidden");
 
-            <!-- Switch text to represent the next month -->
             MonthText.innerHTML = "March";
           }
           else
           {
             if (MonthText.innerHTML === "March")
             {
-              <!-- Hide appropriate days moving onto the next month -->
               var Mar1 = document.getElementById("Mar 1");
               Mar1.setAttribute("hidden", "");
               var Mar2 = document.getElementById("Mar 2");
@@ -430,14 +428,12 @@
               var Apr30 = document.getElementById("Apr 30");
               Apr30.removeAttribute("hidden");
               
-              <!-- Switch text to represent the next month -->
               MonthText.innerHTML = "April";
             }
             else
             {
               if (MonthText.innerHTML === "April")
               {
-                <!-- Hide appropriate days moving onto the next month -->
                 var Apr1 = document.getElementById("Apr 1");
                 Apr1.setAttribute("hidden", "");
                 var Apr2 = document.getElementById("Apr 2");
@@ -562,14 +558,12 @@
                 var May31 = document.getElementById("May 31");
                 May31.removeAttribute("hidden");
 
-                <!-- Switch text to represent the next month -->
                 MonthText.innerHTML = "May";
               }
               else
               {
                 if (MonthText.innerHTML === "May")
                 {
-                  <!-- Hide appropriate days moving onto the next month -->
                   var May1 = document.getElementById("May 1");
                   May1.setAttribute("hidden", "");
                   var May2 = document.getElementById("May 2");
@@ -694,14 +688,12 @@
                   var Jun30 = document.getElementById("Jun 30");
                   Jun30.removeAttribute("hidden");
                   
-                  <!-- Switch text to represent the next month -->
                   MonthText.innerHTML = "June";
                 }
                 else
                 {
                   if (MonthText.innerHTML === "June")
                   {
-                    <!-- Hide appropriate days moving onto the next month -->
                     var Jun1 = document.getElementById("Jun 1");
                     Jun1.setAttribute("hidden", "");
                     var Jun2 = document.getElementById("Jun 2");
@@ -826,7 +818,6 @@
                     var Jul31 = document.getElementById("Jul 31");
                     Jul31.removeAttribute("hidden");
                     
-                    <!-- Switch text to represent the next month -->
                     MonthText.innerHTML = "July";
                   }
                   else
@@ -959,14 +950,12 @@
                       var Aug31 = document.getElementById("Aug 31");
                       Aug31.removeAttribute("hidden");
                       
-                      <!-- Switch text to represent the next month -->
                       MonthText.innerHTML = "August";
                     }
                     else
                     {
                       if (MonthText.innerHTML === "August")
                       {
-                        <!-- Hide appropriate days moving onto the next month -->
                         var Aug1 = document.getElementById("Aug 1");
                         Aug1.setAttribute("hidden", "");
                         var Aug2 = document.getElementById("Aug 2");
@@ -1091,14 +1080,12 @@
                         var Sep30 = document.getElementById("Sep 30");
                         Sep30.removeAttribute("hidden");
                         
-                        <!-- Switch text to represent the next month -->
                         MonthText.innerHTML = "September";
                       }
                       else
                       {
                         if (MonthText.innerHTML === "September")
                         {
-                          <!-- Hide appropriate days moving onto the next month -->
                           var Sep1 = document.getElementById("Sep 1");
                           Sep1.setAttribute("hidden", "");
                           var Sep2 = document.getElementById("Sep 2");
@@ -1223,14 +1210,12 @@
                           var Oct31 = document.getElementById("Oct 31");
                           Oct31.removeAttribute("hidden");
                           
-                          <!-- Switch text to represent the next month -->
                           MonthText.innerHTML = "October";
                         }
                         else
                         {
                           if (MonthText.innerHTML === "October")
                           {
-                            <!-- Hide appropriate days moving onto the next month -->
                             var Oct1 = document.getElementById("Oct 1");
                             Oct1.setAttribute("hidden", "");
                             var Oct2 = document.getElementById("Oct 2");
@@ -1355,14 +1340,12 @@
                             var Nov30 = document.getElementById("Nov 30");
                             Nov30.removeAttribute("hidden");
 
-                            <!-- Switch text to represent the next month -->
                             MonthText.innerHTML = "November";
                           }
                           else
                           {
                             if (MonthText.innerHTML === "November")
                             {
-                              <!-- Hide appropriate days moving onto the next month -->
                               var Nov1 = document.getElementById("Nov 1");
                               Nov1.setAttribute("hidden", "");
                               var Nov2 = document.getElementById("Nov 2");
@@ -1487,7 +1470,6 @@
                               var Dec31 = document.getElementById("Dec 31");
                               Dec31.removeAttribute("hidden");
                                 
-                              <!-- Switch text to represent the next month -->
                               MonthText.innerHTML = "December";
                             }
                             else
@@ -1620,7 +1602,6 @@
                                 var Jan31 = document.getElementById("Jan 31");
                                 Jan31.removeAttribute("hidden");
                                 
-                                <!-- Switch text to represent the next month -->
                                 MonthText.innerHTML = "January";
                               }
                             }
@@ -1636,14 +1617,12 @@
         }
       }
       
-      <!-- This function will activate when Previous Arrow is clicked, and switch to the previous month -->
       function PreviousMonth()
       {
         var MonthText = document.getElementById("myDIV");
         
         if (MonthText.innerHTML === "December")
         {
-          <!-- Hide appropriate days moving onto the previous month -->
           var Dec1 = document.getElementById("Dec 1");
           Dec1.setAttribute("hidden", "");
           var Dec2 = document.getElementById("Dec 2");
@@ -1768,14 +1747,12 @@
           var Nov30 = document.getElementById("Nov 30");
           Nov30.removeAttribute("hidden");
           
-          <!-- Switch text to represent the previous month -->
           MonthText.innerHTML = "November";
         }
         else
         {
           if (MonthText.innerHTML === "November")
           {
-            <!-- Hide appropriate days moving onto the previous month -->
             var Nov1 = document.getElementById("Nov 1");
             Nov1.setAttribute("hidden", "");
             var Nov2 = document.getElementById("Nov 2");
@@ -1900,14 +1877,12 @@
             var Oct31 = document.getElementById("Oct 31");
             Oct31.removeAttribute("hidden");
             
-            <!-- Switch text to represent the previous month -->
             MonthText.innerHTML = "October";
           }
           else
           {
             if (MonthText.innerHTML === "October")
             {
-              <!-- Hide appropriate days moving onto the previous month -->
               var Oct1 = document.getElementById("Oct 1");
               Oct1.setAttribute("hidden", "");
               var Oct2 = document.getElementById("Oct 2");
@@ -2032,14 +2007,12 @@
               var Sep30 = document.getElementById("Sep 30");
               Sep30.removeAttribute("hidden");
               
-              <!-- Switch text to represent the previous month -->
               MonthText.innerHTML = "September";
             }
             else
             {
               if (MonthText.innerHTML === "September")
               {
-                <!-- Hide appropriate days moving onto the previous month -->
                 var Sep1 = document.getElementById("Sep 1");
                 Sep1.setAttribute("hidden", "");
                 var Sep2 = document.getElementById("Sep 2");
@@ -2164,7 +2137,6 @@
                 var Aug31 = document.getElementById("Aug 31");
                 Aug31.removeAttribute("hidden");
                 
-                <!-- Switch text to represent the previous month -->
                 MonthText.innerHTML = "August";
               }
               else
@@ -2298,14 +2270,12 @@
                   var Jul31 = document.getElementById("Jul 31");
                   Jul31.removeAttribute("hidden");
                   
-                  <!-- Switch text to represent the previous month -->
                   MonthText.innerHTML = "July";
                 }
                 else
                 {
                   if (MonthText.innerHTML === "July")
                   {
-                    <!-- Hide appropriate days moving onto the previous month -->
                     var Jul1 = document.getElementById("Jul 1");
                     Jul1.setAttribute("hidden", "");
                     var Jul2 = document.getElementById("Jul 2");
@@ -2430,14 +2400,12 @@
                     var Jun30 = document.getElementById("Jun 30");
                     Jun30.removeAttribute("hidden");
                     
-                    <!-- Switch text to represent the previous month -->
                     MonthText.innerHTML = "June";
                   }
                   else
                   {
                     if (MonthText.innerHTML === "June")
                     {
-                      <!-- Hide appropriate days moving onto the previous month -->
                       var Jun1 = document.getElementById("Jun 1");
                       Jun1.setAttribute("hidden", "");
                       var Jun2 = document.getElementById("Jun 2");
@@ -2562,14 +2530,12 @@
                       var May31 = document.getElementById("May 31");
                       May31.removeAttribute("hidden");
                       
-                      <!-- Switch text to represent the previous month -->
                       MonthText.innerHTML = "May";
                     }
                     else
                     {
                       if (MonthText.innerHTML === "May")
                       {
-                        <!-- Hide appropriate days moving onto the previous month -->
                         var May1 = document.getElementById("May 1");
                         May1.setAttribute("hidden", "");
                         var May2 = document.getElementById("May 2");
@@ -2694,14 +2660,12 @@
                         var Apr30 = document.getElementById("Apr 30");
                         Apr30.removeAttribute("hidden");
                         
-                        <!-- Switch text to represent the previous month -->
                         MonthText.innerHTML = "April";
                       }
                       else
                       {
                         if (MonthText.innerHTML === "April")
                         {
-                          <!-- Hide appropriate days moving onto the previous month -->
                           var Apr1 = document.getElementById("Apr 1");
                           Apr1.setAttribute("hidden", "");
                           var Apr2 = document.getElementById("Apr 2");
@@ -2826,14 +2790,12 @@
                           var Mar31 = document.getElementById("Mar 31");
                           Mar31.removeAttribute("hidden");
                         
-                          <!-- Switch text to represent the previous month -->
                           MonthText.innerHTML = "March";
                         }
                         else
                         {
                           if (MonthText.innerHTML === "March")
                           {
-                            <!-- Hide appropriate days moving onto the next month -->
                             var Mar1 = document.getElementById("Mar 1");
                             Mar1.setAttribute("hidden", "");
                             var Mar2 = document.getElementById("Mar 2");
@@ -2954,14 +2916,12 @@
                             var Feb28 = document.getElementById("Feb 28");
                             Feb28.removeAttribute("hidden");
                             
-                            <!-- Switch text to represent the previous month -->
                             MonthText.innerHTML = "February";
                           }
                           else
                           {
                             if (MonthText.innerHTML === "February")
                             {
-                              <!-- Hide appropriate days moving onto the next month -->
                               var Feb1 = document.getElementById("Feb 1");
                               Feb1.setAttribute("hidden", "");
                               var Feb2 = document.getElementById("Feb 2");
@@ -3082,7 +3042,6 @@
                               var Jan31 = document.getElementById("Jan 31");
                               Jan31.removeAttribute("hidden");
                               
-                              <!-- Switch text to represent the previous month -->
                               MonthText.innerHTML = "January";
                             }
                             else
@@ -3215,7 +3174,6 @@
                                 var Dec31 = document.getElementById("Dec 31");
                                 Dec31.removeAttribute("hidden");
                                 
-                                <!-- Switch text to represent the next month -->
                                 MonthText.innerHTML = "December";
                               }
                             }
@@ -3246,13 +3204,29 @@
               let text = document.getElementById(clicked_id).innerHTML;
               
               let result = text.includes(person);
-              
               if (result == true)
               {
                 document.getElementById(clicked_id).innerHTML = text.replace('<br>' + person,'');
               }
               else
               {
+                const DateObject = new Date();
+                const CurrentEventDate = DateObject.toLocaleString();
+    
+                var HistoryEmpty = localStorage.getItem("UserHistory");
+                
+                if (HistoryEmpty == null)
+                {
+                  localStorage.setItem("UserHistory", person + " - " + CurrentEventDate + "<br></br>");
+                  console.log(localStorage.getItem("UserHistory"));
+                }
+                else
+                {
+                  localStorage.setItem("UserHistory", person + " - " + CurrentEventDate + "<br></br>" + HistoryEmpty);
+                  console.log(localStorage.getItem("UserHistory"));
+                }
+
+
                 document.getElementById(clicked_id).innerHTML += "<br>";
                 document.getElementById(clicked_id).innerHTML += person;
               }
