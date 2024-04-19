@@ -2,9 +2,15 @@ const generateAccessToken = require("./generateAccessToken");
 const express = require("express");
 const app = express();
 const path = require("path");
+
+//DISABLE THIS ONE ON LIVE SERVER
 require("dotenv").config();
 
-const mysql = require("mysql");
+//ENABLE THE BOTTOM ONE ON THE LIVE SERVER
+//require('dotenv').config({ path: '/etc/app.env' }); 
+
+
+const mysql = require("mysql2");
 
 const DB_HOST = process.env.DB_HOST;
 const DB_USER = process.env.DB_USER;
@@ -19,14 +25,17 @@ const db = mysql.createPool({
   password: DB_PASSWORD, // password for them
   database: DB_DATABASE, // name of the database
   port: DB_PORT, // default port number
+	multipleStatements: true,
 });
 
 //connecting to server
-//db.getConnection((err, connection) => {
-//  if (err) throw err;
-//  console.log("DB connected successful: " + connection.threadId);
-//});
-
+db.getConnection((err, connection) => {
+	if (err) {
+		console.error('Error connecting to MySQL database: ' + err.stack);
+		return;
+	}
+	console.log('DB connected successful: ' + connection.threadId);
+});
 
 // Serving static files from "public" directory
 app.use(express.static(path.join(__dirname, "/public")));

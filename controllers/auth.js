@@ -1,4 +1,4 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const generateAccessToken = require("../generateAccessToken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
@@ -18,6 +18,7 @@ const db = mysql.createPool({
   password: DB_PASSWORD, // password for them
   database: DB_DATABASE, // name of the database
   port: DB_PORT, // default port number
+	multipleStatements: true,
 });
 
 //Route to create a user. Checks if user's email exists first, if not creates that user.
@@ -28,8 +29,12 @@ exports.register = async (req, res) => {
 	const passwordConfirm = req.body.passwordConfirm;
 	console.log("Reaching register")
 
-  db.getConnection(async (err, connection) => {
-    if (err) throw err;
+	db.getConnection(async (err, connection) => {
+		if (err) {
+			console.error('Error connecting to MySQL database: ' + err.stack);
+			return;
+		}
+
 
     const sqlSearch = "SELECT * FROM userTable WHERE email = ?";
     const search_query = mysql.format(sqlSearch, [email]);
@@ -76,7 +81,10 @@ exports.login = (req, res) => {
 	const password = req.body.password;
 
 	db.getConnection(async (err, connection) => {
-		if (err) throw (err);
+		if (err) {
+			console.error('Error connecting to MySQL database: ' + err.stack);
+			return;
+		}
 
 		const sqlSearch = "SELECT * FROM userTable WHERE email = ?";
 		const search_query = mysql.format(sqlSearch, [email]);
