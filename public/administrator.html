@@ -4,71 +4,114 @@
     <title>Hello, World!</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  
+
   <style>
-  
-      div
-      {
-        text-align: center;
+      .AdministratorTitle {
+        position: fixed;
+        top: 182px;
+        left: 740px;
       }
-  
+
+      .AdministratorSide {
+        position: fixed;
+        top: 218px;
+        left: 705px;
+      }
+
+      .UserTitle
+      {
+        position: fixed;
+        top: 182px;
+        left: 1069px;
+      }
+
+      .UserSide
+      {
+        position: fixed;
+        top: 218px;
+        left: 1009px;
+      }
+
       .Title
       {
         text-align: center;
         font-size: 30px;
       }
-      .TitleTwo
+      p
       {
         text-align: center;
-        font-size: 20px;
       }
+
+      .container {
+      height: 200px;
+      position: relative;
+    }
+
+
+      
   </style>
   
   <body>
-    
-      <button type="button" style="float: right;">Logout</button>
-      
+      <button type="button" style="float: right; width: 100px; height: 50px;" onclick="LogoutFunction()">Logout</button>
       <br><br><br><br>
-    
-      <div id="myDIV" class="Title">ADMINISTRATOR VIEW<br><br></div>
+      <div id="myDIV" class="Title">ADMINISTRATOR VIEW<br></div>
+
+      <div><br></div>
+
+      <div class="container">           
+        <button style="position: relative; left: 41%; transform: translateX(0%);" onclick="DeleteAdministratorLog()">Delete Administrator Log</button>
+        <button style="position: relative; left: 42%; transform: translateX(0%);" onclick="DeleteEventLog()">Delete Event History Log</button>
+        </div>
+  </body>
   
-  <!-- Script to welcome the administrator -->
   <script>
-  
-    let AdministratorName = "Volvo XC60"; 
-    document.write("<div> Welcome " + AdministratorName + "! </div>");
-  
-    const CurrentDateAndTime = new Date();
-    console.log(CurrentDateAndTime.toLocaleString());
-    
-    
-    <!-- Constantly add to Browser Storage -->
-    
-    
-    var HistoryEmpty = localStorage.getItem("AdminHistory");
-    
-    if (HistoryEmpty == null)
+      function LogoutFunction(){
+        sessionStorage.clear();
+        window.location.href = "index.html";
+      }
+
+
+    function DeleteAdministratorLog()
     {
-      localStorage.setItem("AdminHistory", "First");
+      localStorage.removeItem("AdminHistory");
+      document.getElementById("p0").innerHTML = "";
+    }
+
+    function DeleteEventLog()
+    {
+      localStorage.removeItem("UserHistory");
+      document.getElementById("p1").innerHTML = "";
+    }
+
+    let AdministratorName = "Volvo XC60"; 
+
+    const DateObject = new Date();
+    const CurrentEventDate = DateObject.toLocaleString();
+    
+    var AdminHistoryEmpty = localStorage.getItem("AdminHistory"); 
+    if (AdminHistoryEmpty == null)
+    {
+      localStorage.setItem("AdminHistory", "Admin" + " - " + CurrentEventDate + "<br></br>");
       console.log(localStorage.getItem("AdminHistory"));
     }
     else
     {
-      localStorage.setItem("AdminHistory", HistoryEmpty + "AFTER FIRST");
-      console.log(localStorage.getItem("AdminHistory"));
+      localStorage.setItem("AdminHistory", "Admin" + " - " + CurrentEventDate + "<br></br>" + AdminHistoryEmpty);
+      //localStorage.clear();
+      localStorage.setItemconsole.log(localStorage.getItem("AdminHistory"));
     }
+  </script>
+
+  <div class="wrapper">
+    <div class="AdministratorTitle">Administrator Logins</div>
+    <div class="AdministratorSide" id="p0">???</div>
+    <div class="UserTitle">Event History</div>
+    <div class="UserSide" id="p1">???</div>
+  </div>
   
+  <script>
+    document.getElementById("p0").innerHTML = localStorage.getItem("AdminHistory");
+    document.getElementById("p1").innerHTML = localStorage.getItem("UserHistory");
   </script>
       
-      <p><br>Your Total visits:</p>
-      
-      <p><br>History of User Activities:</p>
-
-      <p id="p1">???</p>
-      
-      <script>
-      document.getElementById("p1").innerHTML = localStorage.getItem("UserHistory");
-      </script>
-      
-  </body>
 </html>

@@ -3217,12 +3217,12 @@
                 
                 if (HistoryEmpty == null)
                 {
-                  localStorage.setItem("UserHistory", person + " - " + CurrentEventDate + "<br></br>");
+                  localStorage.setItem("UserHistory", person + " - " + clicked_id + "<br></br>");
                   console.log(localStorage.getItem("UserHistory"));
                 }
                 else
                 {
-                  localStorage.setItem("UserHistory", person + " - " + CurrentEventDate + "<br></br>" + HistoryEmpty);
+                  localStorage.setItem("UserHistory", person + " - " + clicked_id + "<br></br>" + HistoryEmpty);
                   console.log(localStorage.getItem("UserHistory"));
                 }
 
@@ -3242,9 +3242,9 @@
 </script>
   </head>
   <body>
-    <button type="button" style="float: right;" onclick="LogoutFunction()">Logout</button>
+    <button type="button" style="float: right; width: 100px; height: 50px;" onclick="LogoutFunction()">Logout</button>
       
-      <br><br>
+      <br><br><br>
       
       <div id="myDIV" class="Title">January</div>
       
