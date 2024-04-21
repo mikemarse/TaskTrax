@@ -46,13 +46,11 @@
       height: 200px;
       position: relative;
     }
-
-
       
   </style>
   
   <body>
-      <button type="button" style="float: right; width: 100px; height: 50px;" onclick="LogoutFunction()">Logout</button>
+      <button type="button" style="float: right; width: 100px; height: 50px;" onclick="BackToCalendarFunction()">Back to Calendar</button>
       <br><br><br><br>
       <div id="myDIV" class="Title">ADMINISTRATOR VIEW<br></div>
 
@@ -65,11 +63,10 @@
   </body>
   
   <script>
-      function LogoutFunction(){
-        sessionStorage.clear();
-        window.location.href = "index.html";
+      function BackToCalendarFunction()
+      {
+        window.location.href = "calendar.html";
       }
-
 
     function DeleteAdministratorLog()
     {

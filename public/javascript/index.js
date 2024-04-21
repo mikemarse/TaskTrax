@@ -107,6 +107,9 @@ if (loginForm !== null) {
 				//redirecting to calendar page
 				// This will handle the access token uncomment when we figure out what to do with it
 				//localStorage.setItem('accessToken', data.accessToken)
+				console.log("EMAIL IS: " + email);
+				localStorage.setItem("UserEmail", email);
+				
 				window.location.href = data.redirectTo;
 			}
 			else {

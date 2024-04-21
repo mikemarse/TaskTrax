@@ -3239,10 +3239,24 @@
         window.location.href = "index.html";
       }
 
+      function LogoutFunction()
+      {
+        window.location.href = "administrator.html";
+      }
+
 </script>
   </head>
   <body>
     <button type="button" style="float: right; width: 100px; height: 50px;" onclick="LogoutFunction()">Logout</button>
+    <button hidden id="AdminButton" type="button" style="float: right; width: 100px; height: 50px;" onclick="LogoutFunction()">Admin View</button>
+
+    <script>
+      if (localStorage.getItem("UserEmail") == "admin@administrator.com")
+      {
+        var AdminButton = document.getElementById("AdminButton");
+        AdminButton.removeAttribute("hidden");
+      }
+    </script>
       
       <br><br><br>
       
