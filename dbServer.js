@@ -28,6 +28,8 @@ const db = mysql.createPool({
 	multipleStatements: true,
 });
 
+console.log("TESTING: " + DB_HOST + " " + DB_USER + " " + DB_PASSWORD + " " + DB_DATABASE + " " + DB_PORT);
+
 //connecting to server
 db.getConnection((err, connection) => {
 	if (err) {

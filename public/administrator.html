@@ -9,27 +9,27 @@
       .AdministratorTitle {
         position: fixed;
         top: 182px;
-        left: 740px;
+        left: 705px;
       }
 
       .AdministratorSide {
         position: fixed;
         top: 218px;
-        left: 705px;
+        left: 605px;
       }
 
       .UserTitle
       {
         position: fixed;
         top: 182px;
-        left: 1069px;
+        right: 705px;
       }
 
       .UserSide
       {
         position: fixed;
         top: 218px;
-        left: 1009px;
+        left: 987px;
       }
 
       .Title
@@ -88,12 +88,12 @@
     var AdminHistoryEmpty = localStorage.getItem("AdminHistory"); 
     if (AdminHistoryEmpty == null)
     {
-      localStorage.setItem("AdminHistory", "Admin" + " - " + CurrentEventDate + "<br></br>");
+      localStorage.setItem("AdminHistory", localStorage.getItem("UserEmail") + " - " + CurrentEventDate + "<br></br>");
       console.log(localStorage.getItem("AdminHistory"));
     }
     else
     {
-      localStorage.setItem("AdminHistory", "Admin" + " - " + CurrentEventDate + "<br></br>" + AdminHistoryEmpty);
+      localStorage.setItem("AdminHistory", localStorage.getItem("UserEmail") + " - " + CurrentEventDate + "<br></br>" + AdminHistoryEmpty);
       //localStorage.clear();
       localStorage.setItemconsole.log(localStorage.getItem("AdminHistory"));
     }

@@ -3217,16 +3217,14 @@
                 
                 if (HistoryEmpty == null)
                 {
-                  localStorage.setItem("UserHistory", person + " - " + clicked_id + "<br></br>");
+                  localStorage.setItem("UserHistory", localStorage.getItem("UserEmail") + " -" + person + " " + clicked_id + " - " + CurrentEventDate + "<br></br>");
                   console.log(localStorage.getItem("UserHistory"));
                 }
                 else
                 {
-                  localStorage.setItem("UserHistory", person + " - " + clicked_id + "<br></br>" + HistoryEmpty);
+                  localStorage.setItem("UserHistory", localStorage.getItem("UserEmail") + " - " + person + " " + clicked_id + " - " + CurrentEventDate + "<br></br>" + HistoryEmpty);
                   console.log(localStorage.getItem("UserHistory"));
                 }
-
-
                 document.getElementById(clicked_id).innerHTML += "<br>";
                 document.getElementById(clicked_id).innerHTML += person;
               }

@@ -62,6 +62,9 @@ if (registerForm != null) {
 			const data = await response.json();
 
 			if (response.ok) {
+				console.log("EMAIL IS: " + email);
+				localStorage.setItem("UserEmail", email);
+				
 				//redirect to calendar with access token
 				window.location.href = data.redirectTo;
 			}
