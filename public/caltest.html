@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar 2024</title>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    #calendarContainer {
+        width: 917px;
+        height: 788px;
+    }
+    table {
+        
+        border-collapse: collapse;
+        margin: 0 auto;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 10px;
+        font-size: 15px; 
+    }
+    th {
+        border: 1px solid black;
+        background-color: lightgrey;
+        padding: 0px;
+    }
+    tbody td {
+        padding: 0px;
+        border: 1px solid black;
+        text-align: left;
+        vertical-align: top;
+        width: 130px;
+        height: 108px;
+    }
+    .logout-button {
+        border-style: solid;
+        border-width: thin;
+        float: right;
+        text-align: right;
+        font-size: 15px;
+    }
+    .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #prevMonthBtn,
+    #nextMonthBtn {
+        font-size: 20px; /* Adjust button font size */
+    }
+</style>
+</head>
+<body>
+
+<button type="button" style="position: absolute; top: 10px; right: 10px; width: 100px; height: 50px;" onclick="LogoutFunction()">Logout</button>
+<button hidden id="AdminButton" type="button" style="float: right; width: 100px; height: 50px;" onclick="AdminFunction()">Admin View</button>
+
+<div style="margin: 0 auto; width: 917px;">
+<div id="calendarContainer"></div>
+
+<script>
+    if (localStorage.getItem("UserEmail") == "admin@administrator.com") {
+        var AdminButton = document.getElementById("AdminButton");
+        AdminButton.removeAttribute("hidden");
+    }
+    function createCalendar(month, year) {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const firstDayOfWeek = new Date(year, month, 1).getDay();
+
+        const table = document.createElement('table');
+
+        const thead = table.createTHead();
+
+        const monthNavRow = thead.insertRow();
+        const monthNavCell = monthNavRow.insertCell();
+        monthNavCell.colSpan = 7;
+        monthNavCell.style.textAlign = 'center';
+
+        const prevButton = document.createElement('button');
+        prevButton.id = 'prevMonthBtn';
+        prevButton.textContent = '<';
+        prevButton.style.marginRight = '10px';
+        prevButton.addEventListener('click', () => {
+            if (month === 0) {
+                year--;
+                month = 11;
+            } else {
+                month--;
+            }
+            renderCalendar(month, year);
+        });
+
+        const nextButton = document.createElement('button');
+        nextButton.id = 'nextMonthBtn';
+        nextButton.textContent = '>';
+        nextButton.style.marginLeft = '10px';
+        nextButton.addEventListener('click', () => {
+            if (month === 11) {
+                year++;
+                month = 0;
+            } else {
+                month++;
+            }
+            renderCalendar(month, year);
+        });
+
+        const monthYearSpan = document.createElement('span');
+        monthYearSpan.textContent = ` ${monthNames[month]} ${year} `;
+        monthYearSpan.style.fontSize = '30px';
+
+        const buttonContainer = document.createElement('div');
+        buttonContainer.classList.add('button-container');
+        buttonContainer.appendChild(prevButton);
+        buttonContainer.appendChild(monthYearSpan);
+        buttonContainer.appendChild(nextButton);
+        monthNavCell.appendChild(buttonContainer);
+
+        const headerRow = thead.insertRow();
+        const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        daysOfWeek.forEach(day => {
+            const th = document.createElement('th');
+            th.textContent = day;
+            headerRow.appendChild(th);
+        });
+
+        const tbody = table.createTBody();
+        let date = 1;
+        for (let i = 0; i < 6; i++) {
+            const row = tbody.insertRow();
+            for (let j = 0; j < 7; j++) {
+                if (i === 0 && j < firstDayOfWeek) {
+                    const cell = row.insertCell();
+                    cell.textContent = '';
+                } else if (date > daysInMonth) {
+                    break;
+                } else {
+                    const cell = row.insertCell();
+                    cell.textContent = date;
+                    date++;
+                }
+            }
+        }
+
+        return table;
+    }
+
+    function renderCalendar(month, year) {
+        const calendarContainer = document.getElementById('calendarContainer');
+        calendarContainer.innerHTML = '';
+
+        const table = createCalendar(month, year);
+        calendarContainer.appendChild(table);
+    }
+
+    const currentDate = new Date();
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
+
+    renderCalendar(currentMonth, currentYear);
+
+    function LogoutFunction(){
+        sessionStorage.clear();
+        window.location.href = "index.html";
+    }
+
+    function AdminFunction() {
+        window.location.href = "administrator.html";
+    }
+</script>
+
+</body>
+</html>
+
+
