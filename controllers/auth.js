@@ -125,4 +125,4 @@ exports.login = (req, res) => {
 			}
 		})
 	})
-} 
+}

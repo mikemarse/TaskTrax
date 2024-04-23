@@ -56,12 +56,16 @@
     #nextMonthBtn {
         font-size: 20px; /* Adjust button font size */
     }
+
+		.cursor-pointer {
+			cursor: pointer;
+		}
 </style>
 </head>
-<body>
+	<body>
 
-<button type="button" style="position: absolute; top: 10px; right: 10px; width: 100px; height: 50px;" onclick="LogoutFunction()">Logout</button>
-<button hidden id="AdminButton" type="button" style="float: right; width: 100px; height: 50px;" onclick="AdminFunction()">Admin View</button>
+		<button class="cursor-pointer" type="button" style="position: absolute; top: 10px; right: 10px; width: 100px; height: 50px;" onclick="LogoutFunction()">Logout</button>
+		<button  class="cursor-pointer" hidden id="AdminButton" type="button" style="position: absolute; top: 65px; right: 10px; width: 100px; height: 50px;" onclick="AdminFunction()">Admin View</button>
 
 <div style="margin: 0 auto; width: 917px;">
 <div id="calendarContainer"></div>

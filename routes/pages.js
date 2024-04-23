@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/calendar", (req, res) => {
-	res.sendFile(path.join(__dirname, '../public/calendar.html'));
+	res.sendFile(path.join(__dirname, '../public/caltest.html'));
 });
 
 router.get("/register", (req, res) => {
