@@ -41,8 +41,6 @@ if (registerForm != null) {
 		const password = document.getElementById('password').value;
 		const passwordConfirm = document.getElementById('passwordConfirm').value;
 
-		console.log("email");
-
 		const requestBody = {
 			name: name,
 			email: email,

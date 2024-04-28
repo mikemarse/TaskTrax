@@ -21,6 +21,8 @@ const db = mysql.createPool({
 	multipleStatements: true,
 });
 
+const maxAge = 3 * 24 * 60 * 60;
+
 //Route to create a user. Checks if user's email exists first, if not creates that user.
 exports.register = async (req, res) => {
   const user = req.body.name;
@@ -53,12 +55,12 @@ exports.register = async (req, res) => {
       if (result.length !== 0) {
         connection.release();
         console.log("------> Email is already in use");
-				res.status(404).json({accessToken: "", redirectTo: "/register", message: "Email is already in use"});
+				res.status(404).json({ user: "", redirectTo: "/register", message: "Email is already in use"});
       } 
 			else if (req.body.password !== passwordConfirm) {
 				connection.release();
 				console.log("Passwords do not match ")
-				res.status(404).json({accessToken: "", redirectTo: "/register", message: "Passwords do not match"});
+				res.status(404).json({ user: "", redirectTo: "/register", message: "Passwords do not match"});
 			}
 			else {
         connection.query(insert_query, (err, result) => {
@@ -66,9 +68,12 @@ exports.register = async (req, res) => {
           if (err) throw err;
           console.log("------> Created new User");
           console.log(result.insertId);
-					const token = generateAccessToken({email: email});
-					console.log(`${user}'s token is: ${token}`);
-					res.json({accessToken: token, redirectTo: "/calendar", message: ""});
+					const token = generateAccessToken({ email: email });
+
+																			// Change to secure: true
+					res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+					//console.log(`${user}'s token is: ${token}`);
+					res.json({ user: email, redirectTo: "/calendar", message: ""});
         });
       }
     });
@@ -95,7 +100,7 @@ exports.login = (req, res) => {
 			if (result.length === 0) {
 				console.log("------> User does not exist");
 				//res.sendStatus(404);
-				res.status(404).json({accessToken: "", redirectTo: "/", message: "Invalid email or password"});
+				res.status(404).json({ user: "", redirectTo: "/", message: "Invalid email or password"});
 
 				// USING A TEMPLATE ENGINE YOU CAN DO THIS
 				/*return res.render('/index', {
@@ -110,14 +115,16 @@ exports.login = (req, res) => {
 					console.log("------> Login successful");
 					console.log("------> Generating accessToken");
 					const token = generateAccessToken({email: email});
-					console.log(`${result[0].user}'s token is: ${token}`);
-					res.json({accessToken: token, redirectTo: "/calendar", message: ""});
+					console.log(`${result[0].userID}'s token is: ${token}`);
+																		// Change to secure: true
+					res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+					res.json({user: result[0].userID, redirectTo: "/calendar", message: ""});
 					// Gonna render the calendar page here after login! ------------
 				}
 				else { // Password is incorrect
 					console.log("------> Password is incorrect");
 					//res.send("Password incorrect!");
-					res.status(404).json({accessToken: "", redirectTo: "/", message: "Invalid email or password"})
+					res.status(404).json({ user: "", redirectTo: "/", message: "Invalid email or password"})
 					/*return res.render('/', {
 						message: 'Incorrect email or password' // need a templating engine to be able to render this. Gotta figure out which one to use.
 					});*/

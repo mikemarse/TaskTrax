@@ -2,6 +2,7 @@ const generateAccessToken = require("./generateAccessToken");
 const express = require("express");
 const app = express();
 const path = require("path");
+const cookieParser = require("cookie-parser");
 
 //DISABLE THIS ONE ON LIVE SERVER
 require("dotenv").config();
@@ -55,6 +56,7 @@ app.use(
 app.use(express.urlencoded({ extended: false }))
 // Pase JSON bodies
 app.use(express.json());
+app.use(cookieParser());
 
 // Define the routes
 app.use("/", require("./routes/pages"));
