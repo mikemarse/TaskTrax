@@ -81,7 +81,7 @@
         margin: 15% auto;
         padding: 20px;
         border: 1px solid #888;
-        width: 80%;
+				max-width: 50ch;
     }
     
     .close {
@@ -97,6 +97,15 @@
         text-decoration: none;
         cursor: pointer;
     }
+
+		.task-div {
+			background-color: red;
+			padding: 4px;
+			border-radius: 5px;
+			margin: 2px;
+			color: white;
+			font-family: sans-serif;
+		}
 </style>
 </head>
 <body>
@@ -202,6 +211,8 @@
                     const cell = row.insertCell();
                     cell.textContent = date;
                     cell.classList.add('cursor-pointer');
+										cell.id = `td[data-day="${date}"][data-month="${month+1}"][data-year="${year}"]`;
+										console.log(cell.id)
                     cell.setAttribute('onclick', `openModal(${date}, ${month + 1}, ${year})`);
                     if (date === currentDate.getDate() && month === currentDate.getMonth() && year === currentDate.getFullYear()) {
                         cell.classList.add('current-day');
@@ -210,7 +221,6 @@
                 }
             }
         }
-
         return table;
     }
 
@@ -231,14 +241,18 @@
     // Functions for modal
     function openModal(day, month, year) {
         const modal = document.getElementById('myModal');
+				console.log(`${day} ${month} ${year}`);
         modal.style.display = 'block';
         document.getElementById('taskInput').focus();
         document.getElementById('taskInput').setAttribute('data-day', day);
         document.getElementById('taskInput').setAttribute('data-month', month);
         document.getElementById('taskInput').setAttribute('data-year', year);
+				//console.log(document.getElementById('taskInput').getAttribute('data-year'));
     }
 
     function closeModal() {
+        const inputBox = document.getElementById("taskInput");
+				inputBox.value = "";
         const modal = document.getElementById('myModal');
         modal.style.display = 'none';
     }
@@ -248,15 +262,19 @@
         const month = document.getElementById('taskInput').getAttribute('data-month');
         const year = document.getElementById('taskInput').getAttribute('data-year');
         const taskDescription = document.getElementById('taskInput').value;
+
+			console.log(`${day} ${month} ${year} ${taskDescription}`)
         
         // Find the corresponding cell and append the task
-        const cell = document.querySelector(`td[data-day="${day}"][data-month="${month}"][data-year="${year}"]`);
+        const cell = document.getElementById(`td[data-day="${day}"][data-month="${month}"][data-year="${year}"]`);
+				console.log(`td[data-day="${day}"][data-month="${month}"][data-year="${year}"]`);
+				console.log(cell);
         if (cell) {
             const taskElement = document.createElement('div');
+						taskElement.classList.add('task-div')
             taskElement.textContent = taskDescription;
             cell.appendChild(taskElement);
         }
-        
         closeModal();
     }
 
