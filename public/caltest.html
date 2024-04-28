@@ -38,6 +38,7 @@
         vertical-align: top;
         width: 130px;
         height: 108px;
+        overflow-y: auto; /* Add overflow for displaying tasks */
     }
     .logout-button {
         border-style: solid;
@@ -61,17 +62,61 @@
     .current-day {
         background-color: rgb(215, 215, 211); /* Highlight color for the current day */
     }
+    
+    /* Modal styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+    }
+    
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+    
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 </style>
 </head>
-	<body>
+<body>
 
-		<button class="cursor-pointer" type="button" style="position: absolute; top: 10px; right: 10px; width: 100px; height: 50px;" onclick="LogoutFunction()">Logout</button>
-		<button  class="cursor-pointer" hidden id="AdminButton" type="button" style="position: absolute; top: 65px; right: 10px; width: 100px; height: 50px;" onclick="AdminFunction()">Admin View</button>
-
-
+<button class="cursor-pointer" type="button" style="position: absolute; top: 10px; right: 10px; width: 100px; height: 50px;" onclick="LogoutFunction()">Logout</button>
+<button  class="cursor-pointer" hidden id="AdminButton" type="button" style="position: absolute; top: 65px; right: 10px; width: 100px; height: 50px;" onclick="AdminFunction()">Admin View</button>
 
 <div style="margin: 0 auto; width: 917px;">
 <div id="calendarContainer"></div>
+
+<!-- The modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Add Task</h2>
+    <input type="text" id="taskInput" placeholder="Enter task description...">
+    <button onclick="addTask()">Add Task</button>
+  </div>
+</div>
 
 <script>
     if (localStorage.getItem("UserEmail") == "admin@administrator.com") {
@@ -156,6 +201,8 @@
                 } else {
                     const cell = row.insertCell();
                     cell.textContent = date;
+                    cell.classList.add('cursor-pointer');
+                    cell.setAttribute('onclick', `openModal(${date}, ${month + 1}, ${year})`);
                     if (date === currentDate.getDate() && month === currentDate.getMonth() && year === currentDate.getFullYear()) {
                         cell.classList.add('current-day');
                     }
@@ -181,47 +228,38 @@
 
     renderCalendar(currentMonth, currentYear);
 
-    function taskMaker(clicked_id){
-    let person = prompt("To Add A Task, type below and press enter\nTo Delete Task, type in a pre-existing event and press enter\nTo Clear, Type in <CLEAR> and press enter");
-    
-    if (person == "<CLEAR>")
-    {
-        document.getElementById(clicked_id).innerHTML = clicked_id;
+    // Functions for modal
+    function openModal(day, month, year) {
+        const modal = document.getElementById('myModal');
+        modal.style.display = 'block';
+        document.getElementById('taskInput').focus();
+        document.getElementById('taskInput').setAttribute('data-day', day);
+        document.getElementById('taskInput').setAttribute('data-month', month);
+        document.getElementById('taskInput').setAttribute('data-year', year);
     }
-    else
-    {
-        if (person != null)
-        {
-            let text = document.getElementById(clicked_id).innerHTML;
-            
-            let result = text.includes(person);
-            if (result == true)
-            {
-            document.getElementById(clicked_id).innerHTML = text.replace('<br>' + person,'');
-            }
-            else
-            {
-            const DateObject = new Date();
-            const CurrentEventDate = DateObject.toLocaleString();
 
-            var HistoryEmpty = localStorage.getItem("UserHistory");
-            
-            if (HistoryEmpty == null)
-            {
-                localStorage.setItem("UserHistory", localStorage.getItem("UserEmail") + " -" + person + " " + clicked_id + " - " + CurrentEventDate + "<br></br>");
-                console.log(localStorage.getItem("UserHistory"));
-            }
-            else
-            {
-                localStorage.setItem("UserHistory", localStorage.getItem("UserEmail") + " - " + person + " " + clicked_id + " - " + CurrentEventDate + "<br></br>" + HistoryEmpty);
-                console.log(localStorage.getItem("UserHistory"));
-            }
-            document.getElementById(clicked_id).innerHTML += "<br>";
-            document.getElementById(clicked_id).innerHTML += person;
-            }
+    function closeModal() {
+        const modal = document.getElementById('myModal');
+        modal.style.display = 'none';
+    }
+
+    function addTask() {
+        const day = document.getElementById('taskInput').getAttribute('data-day');
+        const month = document.getElementById('taskInput').getAttribute('data-month');
+        const year = document.getElementById('taskInput').getAttribute('data-year');
+        const taskDescription = document.getElementById('taskInput').value;
+        
+        // Find the corresponding cell and append the task
+        const cell = document.querySelector(`td[data-day="${day}"][data-month="${month}"][data-year="${year}"]`);
+        if (cell) {
+            const taskElement = document.createElement('div');
+            taskElement.textContent = taskDescription;
+            cell.appendChild(taskElement);
         }
+        
+        closeModal();
     }
-    }
+
     function LogoutFunction(){
         sessionStorage.clear();
         window.location.href = "index.html";
@@ -234,5 +272,3 @@
 
 </body>
 </html>
-
-
