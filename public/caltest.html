@@ -276,6 +276,14 @@
             cell.appendChild(taskElement);
         }
         closeModal();
+
+        // Save the task to localStorage
+        const historyEntry = `${localStorage.getItem("UserEmail")} - ${taskDescription} ${day}/${month}/${year}`;
+        if (localStorage.getItem("UserHistory") === null) {
+            localStorage.setItem("UserHistory", historyEntry + "<br>");
+        } else {
+            localStorage.setItem("UserHistory", historyEntry + "<br>" + localStorage.getItem("UserHistory"));
+        }
     }
 
     function LogoutFunction(){
