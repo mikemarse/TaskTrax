@@ -343,12 +343,22 @@ function addTask() {
     localStorage.setItem(tasksKey, JSON.stringify(tasks));
 
     // Update the modal content with the new task
-    const modalContent = document.querySelector('.modal-content');
-    const taskList = modalContent.querySelector('.task-list');
-    if (taskList) {
-        const newTaskItem = document.createElement('div');
-        newTaskItem.textContent = taskDescription;
-        taskList.appendChild(newTaskItem);
+    const inputTaskDescription = document.getElementById('taskInput').value;
+    if (taskDescription !== inputTaskDescription) {
+        const modalContent = document.querySelector('.modal-content');
+        const taskList = modalContent.querySelector('.task-list');
+        if (taskList) {
+            const newTaskItem = document.createElement('div');
+            newTaskItem.textContent = taskDescription;
+            taskList.appendChild(newTaskItem);
+        }
+    }
+            // Save the task to localStorage
+    const historyEntry = `${localStorage.getItem("UserEmail")} - ${taskDescription} ${day}/${month}/${year}`;
+    if (localStorage.getItem("UserHistory") === null) {
+        localStorage.setItem("UserHistory", historyEntry + "<br>");
+    } else {
+        localStorage.setItem("UserHistory", historyEntry + "<br>" + localStorage.getItem("UserHistory"));
     }
 }
 function clearTasks() {
