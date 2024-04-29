@@ -115,6 +115,27 @@
 			background-color: rgba(0, 0, 0, 0.8);
 		}
 
+		.input-btn-div {
+			display: flex;
+			border-radius: 5px;
+			margin-top: 10px;
+			gap: 20px;
+		}
+
+		.input-btn-div button {
+			width: 130px;
+			height: 40px;
+			background-color: black;
+			color: white;
+			cursor: pointer;
+			outline: none;
+			border: none;
+		}
+
+		.input-btn-div button:hover {
+			background-color: rgba(0, 0, 0, 0.8);
+		}
+
     .close {
         color: #aaa;
         float: right;
@@ -156,9 +177,11 @@
 						<h2>Add Task</h2>
 						<label for="taskInput">Task</label>
 						<input type="text" id="taskInput" class="taskInput" placeholder="Enter task description...">
-						<button onclick="addTask()">Add Task</button>
-                        <button onclick="clearTasks()">Clear Tasks</button>
-                        <div class="task-list"></div> <!-- Add this element to display tasks in the modal -->
+						<div class="input-btn-div">
+							<button onclick="addTask()">Add Task</button>
+							<button onclick="clearTasks()">Clear Tasks</button>
+						</div>
+						<div class="task-list"></div> <!-- Add this element to display tasks in the modal -->
 					</div>
 				</div>
 			</div>
@@ -393,7 +416,7 @@ function clearTasks() {
     }
 
     function AdminFunction() {
-        window.location.href = "administrator.html";
+        window.location.href = "/administrator";
     }
 </script>
 
