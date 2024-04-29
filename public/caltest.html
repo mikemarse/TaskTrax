@@ -11,6 +11,7 @@
         align-items: center;
         height: 100vh;
         margin: 0;
+				font-family: sans-serif;
     }
     #calendarContainer {
         width: 917px;
@@ -81,9 +82,39 @@
         margin: 15% auto;
         padding: 20px;
         border: 1px solid #888;
-				max-width: 50ch;
+				width: 400px;
+				border-radius: 20px;;
     }
-    
+
+		.modal-inside-div {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.taskInput {
+			padding: 10px 10px;
+			width: 250px;
+			margin-botton: 40px;
+			outline: none;
+			font-size: 18px;
+		}
+
+		.task-btn {
+			margin-top: 10px;
+			background-color: black;
+			color: white;
+			border-radius: 5px;
+			width: 150px;
+			height: 40px;
+			border: none;
+			cursor: pointer;
+		}
+
+		.task-btn:hover {
+			background-color: rgba(0, 0, 0, 0.8);
+		}
+
     .close {
         color: #aaa;
         float: right;
@@ -116,16 +147,19 @@
 <div style="margin: 0 auto; width: 917px;">
 <div id="calendarContainer"></div>
 
-<!-- The modal -->
-<div id="myModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h2>Add Task</h2>
-    <input type="text" id="taskInput" placeholder="Enter task description...">
-    <button onclick="addTask()">Add Task</button>
-  </div>
-</div>
+			<!-- The modal -->
+			<div id="myModal" class="modal">
+				<!-- Modal content -->
+				<div class="modal-content">
+					<span class="close" onclick="closeModal()">&times;</span>
+					<div class="modal-inside-div">
+						<h2>Add Task</h2>
+						<label for="taskInput">Task</label>
+						<input type="text" id="taskInput" class="taskInput" placeholder="Enter task description...">
+						<button onclick="addTask()" class="task-btn">Add Task</button>
+					</div>
+				</div>
+			</div>
 
 <script>
     if (localStorage.getItem("UserEmail") == "admin@administrator.com") {
