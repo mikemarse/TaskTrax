@@ -124,7 +124,9 @@
     <h2>Add Task</h2>
     <input type="text" id="taskInput" placeholder="Enter task description...">
     <button onclick="addTask()">Add Task</button>
-  </div>
+    <button onclick="clearTasks()">Clear Tasks</button>
+    <div class="task-list"></div> <!-- Add this element to display tasks in the modal -->
+</div>
 </div>
 
 <script>
@@ -221,6 +223,10 @@
                 }
             }
         }
+
+        // Load tasks for the current month
+        loadTasks(month + 1, year);
+
         return table;
     }
 
@@ -230,6 +236,9 @@
 
         const table = createCalendar(month, year);
         calendarContainer.appendChild(table);
+
+        // Load tasks for the current month
+        loadTasks(month + 1, year);
     }
 
     const currentDate = new Date();
@@ -238,54 +247,105 @@
 
     renderCalendar(currentMonth, currentYear);
 
+    // Load tasks from localStorage for the specified month and year
+    function loadTasks(month, year) {
+        const tasks = localStorage.getItem(`Tasks_${month}_${year}`);
+        if (tasks) {
+            const taskData = JSON.parse(tasks);
+            taskData.forEach(data => {
+                const { day, description } = data;
+                const cell = document.getElementById(`td[data-day="${day}"][data-month="${month}"][data-year="${year}"]`);
+                if (cell) {
+                    const taskElement = document.createElement('div');
+                    taskElement.classList.add('task-div')
+                    taskElement.textContent = description;
+                    cell.appendChild(taskElement);
+                }
+            });
+        }
+    }
+
     // Functions for modal
     function openModal(day, month, year) {
         const modal = document.getElementById('myModal');
-				console.log(`${day} ${month} ${year}`);
         modal.style.display = 'block';
         document.getElementById('taskInput').focus();
         document.getElementById('taskInput').setAttribute('data-day', day);
         document.getElementById('taskInput').setAttribute('data-month', month);
         document.getElementById('taskInput').setAttribute('data-year', year);
-				//console.log(document.getElementById('taskInput').getAttribute('data-year'));
     }
 
     function closeModal() {
         const inputBox = document.getElementById("taskInput");
-				inputBox.value = "";
+        inputBox.value = "";
         const modal = document.getElementById('myModal');
         modal.style.display = 'none';
     }
 
-    function addTask() {
-        const day = document.getElementById('taskInput').getAttribute('data-day');
-        const month = document.getElementById('taskInput').getAttribute('data-month');
-        const year = document.getElementById('taskInput').getAttribute('data-year');
-        const taskDescription = document.getElementById('taskInput').value;
+function addTask() {
+    const day = document.getElementById('taskInput').getAttribute('data-day');
+    const month = document.getElementById('taskInput').getAttribute('data-month');
+    const year = document.getElementById('taskInput').getAttribute('data-year');
+    const taskDescription = document.getElementById('taskInput').value;
 
-			console.log(`${day} ${month} ${year} ${taskDescription}`)
-        
-        // Find the corresponding cell and append the task
-        const cell = document.getElementById(`td[data-day="${day}"][data-month="${month}"][data-year="${year}"]`);
-				console.log(`td[data-day="${day}"][data-month="${month}"][data-year="${year}"]`);
-				console.log(cell);
-        if (cell) {
-            const taskElement = document.createElement('div');
-						taskElement.classList.add('task-div')
-            taskElement.textContent = taskDescription;
-            cell.appendChild(taskElement);
-        }
-        closeModal();
-
-        // Save the task to localStorage
-        const historyEntry = `${localStorage.getItem("UserEmail")} - ${taskDescription} ${day}/${month}/${year}`;
-        if (localStorage.getItem("UserHistory") === null) {
-            localStorage.setItem("UserHistory", historyEntry + "<br>");
-        } else {
-            localStorage.setItem("UserHistory", historyEntry + "<br>" + localStorage.getItem("UserHistory"));
-        }
+    // Find the corresponding cell and append the task
+    const cell = document.getElementById(`td[data-day="${day}"][data-month="${month}"][data-year="${year}"]`);
+    if (cell) {
+        const taskElement = document.createElement('div');
+        taskElement.classList.add('task-div')
+        taskElement.textContent = taskDescription;
+        cell.appendChild(taskElement);
     }
 
+    // Save the task to localStorage
+    const tasksKey = `Tasks_${month}_${year}`;
+    let tasks = localStorage.getItem(tasksKey);
+    if (!tasks) {
+        tasks = [];
+    } else {
+        tasks = JSON.parse(tasks);
+    }
+    tasks.push({ day, description: taskDescription });
+    localStorage.setItem(tasksKey, JSON.stringify(tasks));
+
+    // Update the modal content with the new task
+    const modalContent = document.querySelector('.modal-content');
+    const taskList = modalContent.querySelector('.task-list');
+    if (taskList) {
+        const newTaskItem = document.createElement('div');
+        newTaskItem.textContent = taskDescription;
+        taskList.appendChild(newTaskItem);
+    }
+}
+function clearTasks() {
+    const day = document.getElementById('taskInput').getAttribute('data-day');
+    const month = document.getElementById('taskInput').getAttribute('data-month');
+    const year = document.getElementById('taskInput').getAttribute('data-year');
+
+    // Find the corresponding cell
+    const cell = document.getElementById(`td[data-day="${day}"][data-month="${month}"][data-year="${year}"]`);
+    if (cell) {
+        // Remove task-related elements while keeping the day number intact
+        const taskDivs = cell.querySelectorAll('.task-div');
+        taskDivs.forEach(taskDiv => {
+            taskDiv.remove();
+        });
+
+        // Also clear tasks from localStorage
+        const tasksKey = `Tasks_${month}_${year}`;
+        localStorage.removeItem(tasksKey);
+    }
+
+    // Clear tasks from the modal content
+    const modalContent = document.querySelector('.modal-content');
+    const taskList = modalContent.querySelector('.task-list');
+    if (taskList) {
+        taskList.innerHTML = ''; // Remove all child elements
+    }
+
+    // Close the modal
+    closeModal();
+}
     function LogoutFunction(){
         sessionStorage.clear();
         window.location.href = "index.html";
