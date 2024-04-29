@@ -19,7 +19,7 @@ router.get("/register", (req, res) => {
 });
 
 router.get("/administrator", requireAuth, (req, res) => {
-	res.sendFile("../public/administrator.html");
+	res.sendFile(path.join(__dirname, '../public/administrator.html'));
 });
 
 router.get("/logout", (req, res) => {
